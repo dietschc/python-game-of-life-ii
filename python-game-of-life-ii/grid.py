@@ -47,20 +47,31 @@ def iterate_grid():
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
-    print("this row: " + str( row ))
-    print("this col: " + str( col ))
-
-    # Should always be true if calling function
-    if grid[row][col]:
-        print("alive")
+    row_neighbor = ''
+    col_nieghbor = ''
 
     # Trick to read the rows and cols around current cell
     for x in range(-1, 2):
         for y in range(-1, 2):
-            print("row: " + str( row + x ))
-            print("col: " + str( col + y ))
-            # Need to implement code to 'wrap-around' when neighbors are below 0 or above 9
+            row_neighbor = row + x
+            col_neighbor = col + y
 
+            print("row: " + str( row_neighbor ))
+            print("col: " + str( col_neighbor ))
+            print("neighbor: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+
+            # Wrap-around when neighbors are below 0 or above 9
+            if row_neighbor < 0:
+                row_neighbor += rows
+            elif row_neighbor > rows:
+                row_neighbor -= rows
+
+            if col_neighbor < 0:
+                col_neighbor += cols
+            elif col_neighbor > cols:
+                col_neighbor -= cols
+
+            print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
 
 
 # Main
