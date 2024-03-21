@@ -14,7 +14,7 @@ def setup_grid():
             col.append(0)
         grid.append(col)
 
-    # Print random initial condition
+    # Print random initial conditions
     print("row rand: " + str( rrand) )
     print("col rand: " + str( crand) )
 
@@ -23,7 +23,6 @@ def setup_grid():
 
 # Function to print entire grid matrix to the display
 def output_grid():
-    # Print whole matrix
     for x in grid:
         print(x)
     print() # blank line
@@ -49,6 +48,7 @@ def iterate_grid():
 def check_neighbors(row, col):
     row_neighbor = ''
     col_nieghbor = ''
+    neighbor_count = 0
 
     # Algorithm to read the rows and cols around current cell
     for x in range(-1, 2):
@@ -69,15 +69,20 @@ def check_neighbors(row, col):
             # Wrap-around when neighbors are below 0 or above cols/rows max values
             if row_neighbor < 0:
                 row_neighbor += rows
-            elif row_neighbor > rows:
+            elif row_neighbor >= rows:
                 row_neighbor -= rows
 
             if col_neighbor < 0:
                 col_neighbor += cols
-            elif col_neighbor > cols:
+            elif col_neighbor >= cols:
                 col_neighbor -= cols
 
             print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+
+            if grid[row_neighbor][col_neighbor]:
+                neighbor_count += 1
+
+    print("cell neighbors: " + str( neighbor_count ))
 
 
 # Main
