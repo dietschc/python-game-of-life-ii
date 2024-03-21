@@ -1,11 +1,10 @@
 from numpy import random
 
 grid = []
-epoch = []
 rows = 10
 cols = 10
-xrand = random.randint(10)
-yrand = random.randint(10)
+rrand = random.randint(10)
+crand = random.randint(10)
 
 # Grid setup code
 # Generate grid and fill with zeroes
@@ -16,8 +15,11 @@ for x in range(rows):
     grid.append(col)
 
 # Print random initial condition
-print("xrand: " + str( xrand) )
-print("yrand: " + str( yrand) )
+print("row rand: " + str( rrand) )
+print("col rand: " + str( crand) )
+
+# Set initial random seed position
+grid[rrand][crand] = 1
 
 # Function to print entire grid matrix to the display
 def output_grid():
@@ -27,8 +29,12 @@ def output_grid():
     print() # print blank line
 
 def iterate_grid():
-    grid[xrand][yrand] = 1
-    output_grid()
+    for x in grid:
+        for y in x:
+            if y == 1:
+                print("row: " + str( grid.index(x) ))
+                print("column: " + str( x.index(y) ))
+
 
 # Main
 if __name__=="__main__":
