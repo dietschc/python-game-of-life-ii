@@ -129,10 +129,19 @@ def apply_game_rules(row, col, count):
     #print("# of neighbors: " + str( count ) + "\n")
     #print("dead or alve? " + str( nextGeneration[row][col] )) 
 
-    # Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+    # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
     if count < 2:
-        print("less than 2 neighbors; cell dies now...")
+        print("Underpopulation - less than 2 neighbors; cell dies now...")
         nextGeneration[row][col] = 0
+
+    # 2. Any live cell with two or three live neighbors lives on to the next generation.
+    # Do nothing
+
+    # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+    if count > 3:
+        print("Overpopulation - more than 3 neighbors; cell dies now...")
+        nextGeneration[row][col] = 0
+
 
 # Main
 if __name__ == "__main__":
