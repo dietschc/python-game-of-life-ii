@@ -72,9 +72,9 @@ def iterate_grid():
             else:
                 dead_count += 1
 
-    print("Alive count: " + str( alive_count ))
-    print("Dead count: " + str( dead_count ))
-    print("Total count: " + str( alive_count + dead_count ))
+    print("Previous alive count: " + str( alive_count ))
+    print("Previous dead count: " + str( dead_count ))
+    print("Previous Total count: " + str( alive_count + dead_count ) + "\n")
 
     print("Advancing to next generation")
     print("########################################################\n")
@@ -143,7 +143,8 @@ def apply_game_rules(row, col, count):
     if grid[row][col]:
         # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
         if count < 2:
-            print("Underpopulation - less than 2 neighbors; cell dies now...")
+            print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col )
+                  + " dies now...")
             nextGeneration[row][col] = 0
 
         # 2. Any live cell with two or three live neighbors lives on to the next generation.
@@ -151,19 +152,21 @@ def apply_game_rules(row, col, count):
 
         # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
         if count > 3:
-            print("Overpopulation - more than 3 neighbors; cell dies now...")
+            print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col )
+                  + " dies now...")
             nextGeneration[row][col] = 0
    
    # Else cell is dead
     else:
     # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
         if count == 3:
-            print("Reproduction - returns this cell to life")
+            print("Reproduction - returns " + str( row ) + ", " + str( col ) + " to life")
             nextGeneration[row][col] = 1
 
 
 # Main
 if __name__ == "__main__":
     setup_grid()
+    iterate_grid()
     iterate_grid()
 
