@@ -7,7 +7,13 @@ import time
 # (2nd attempt)
 #
 # March 22, 2024
-# By Coleman Dietsch
+# Coleman Dietsch
+#
+#
+# 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+# 2. Any live cell with two or three live neighbors lives on to the next generation.
+# 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+# 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 #
 #
 
@@ -55,20 +61,22 @@ def iterate_grid():
 
     row_current = ''
     col_current = ''
-    alive_count = 0
-    dead_count = 0
 
     # Copy current grid to nextGeneration
     # nextGeneration is modified based on the current grid and copied back at the end
     nextGeneration = grid
 
-    for x in grid:
-        for y in x:
-            row_current = grid.index(x)
-            col_current = x.index(y)
+    for x in range(len(grid)):
+        for y in range(len(grid[x])):
+            #print("grid row index: " + str( y ))
+            #print("grid column index: " + str( x ))
+
+            row_current = y
+            col_current = x
             neighbor_count_current = 0
 
             # Debug currently selected row and column
+            #print("cell value: " + str( y ))
             #print("cell row: " + str( row_current ))
             #print("cell column: " + str( col_current ) + "\n")
 
@@ -77,21 +85,12 @@ def iterate_grid():
 
             apply_game_rules(row_current, col_current, neighbor_count_current)
 
-            # Check if cell is alive
-            if y:
-                alive_count += 1
-            else:
-                dead_count += 1
-
-    #print("Previous alive count: " + str( alive_count ))
-    #print("Previous dead count: " + str( dead_count ))
-    #print("Previous Total count: " + str( alive_count + dead_count ) + "\n")
-    #print("Advancing to next generation")
-    #print("########################################################\n")
+    print("Advancing to next generation")
+    print("########################################################\n")
 
     # Copy the nextGeneration to current grid for the next iteration
-    grid = nextGeneration
-    output_grid()
+#    grid = nextGeneration
+#    output_grid()
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
@@ -112,7 +111,7 @@ def check_neighbors(row, col):
 
             # Check to see if neighbor is current cell and skip if it is
             if row == row_neighbor and col == col_neighbor:
-                #print("this cell is: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+                print("this cell is: " + str( row_neighbor ) + ", " + str( col_neighbor ))
                 continue
 
             # Wrap-around when neighbors are below 0 or above cols/rows max values
@@ -138,22 +137,18 @@ def check_neighbors(row, col):
 
 
 # The 4 rules of Conway's Game of Life
-# 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-# 2. Any live cell with two or three live neighbors lives on to the next generation.
-# 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
-# 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 def apply_game_rules(row, col, count):
 
     # Debug inputs
-    #print("applying game rules to: " + str( row ) + ", " + str( col ))
-    #print("# of neighbors: " + str( count ) + "\n")
-    #print("dead or alve? " + str( nextGeneration[row][col] )) 
+    print("applying game rules to: " + str( row ) + ", " + str( col ))
+    print("# of neighbors: " + str( count ))
+    print("dead or alve? " + str( grid[row][col] )) 
 
-    # If cell is alive
+    # If cell is alive in current grid
     if grid[row][col]:
         # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
         if count < 2:
-            print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col ) + " dies now...")
+            print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
             nextGeneration[row][col] = 0
 
         # 2. Any live cell with two or three live neighbors lives on to the next generation.
@@ -161,14 +156,14 @@ def apply_game_rules(row, col, count):
 
         # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
         if count > 3:
-            print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col ) + " dies now...")
+            print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
             nextGeneration[row][col] = 0
    
    # Else cell is dead
     else:
     # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
         if count == 3:
-            print("Reproduction - returns " + str( row ) + ", " + str( col ) + " to life")
+            print("Reproduction - returns " + str( row ) + ", " + str( col ) + " to life\n")
             nextGeneration[row][col] = 1
 
 
@@ -178,14 +173,16 @@ if __name__ == "__main__":
 
     os.system('clear')
     setup_grid()
-    time.sleep(3)
+    iterate_grid()
 
-    while True:
-        os.system('clear')
-        count += 1
-        iterate_grid()
-        print("iteration count: " + str( count ))
-        time.sleep(3)
+#    time.sleep(3)
+
+#    while True:
+#        os.system('clear')
+#        count += 1
+#        iterate_grid()
+#        print("iteration count: " + str( count ))
+#        time.sleep(3)
 
     
 
