@@ -20,15 +20,15 @@ def setup_grid():
         rrand = random.randint(rows)
         crand = random.randint(cols)
 
-        # Print random initial conditions
-        print("row rand: " + str( rrand) )
-        print("col rand: " + str( crand) + "\n")
+        # Debug random initial conditions
+        #print("row rand: " + str( rrand) )
+        #print("col rand: " + str( crand) + "\n")
 
         # Set initial random seed position
         grid[rrand][crand] = 1
         seedCount += 1
 
-    #print("seed count " + str( seedCount ))
+    print("seed count " + str( seedCount ))
     output_grid()
 
 # Function to print entire grid matrix to the display
@@ -44,7 +44,8 @@ def iterate_grid():
 
     row_current = ''
     col_current = ''
-    cell_count = 0
+    alive_count = 0
+    dead_count = 0
 
     # Copy current grid to nextGeneration
     # nextGeneration is modified based on the current grid and copied back at the end
@@ -57,13 +58,23 @@ def iterate_grid():
             neighbor_count_current = 0
 
             # Debug currently selected row and column
-            print("cell row: " + str( row_current ))
-            print("cell column: " + str( col_current ) + "\n")
+            #print("cell row: " + str( row_current ))
+            #print("cell column: " + str( col_current ) + "\n")
 
             neighbor_count_current = check_neighbors(row_current, col_current)
-            print("cell has x neighbors: " + str( neighbor_count_current ) + "\n")
+            #print("cell has x neighbors: " + str( neighbor_count_current ))
 
             apply_game_rules(row_current, col_current, neighbor_count_current)
+
+            # Check if cell is alive
+            if y:
+                alive_count += 1
+            else:
+                dead_count += 1
+
+    print("Alive count: " + str( alive_count ))
+    print("Dead count: " + str( dead_count ))
+    print("Total count: " + str( alive_count + dead_count ))
 
     print("Advancing to next generation")
     print("########################################################\n")
@@ -91,7 +102,7 @@ def check_neighbors(row, col):
 
             # Check to see if neighbor is current cell and skip if it is
             if row == row_neighbor and col == col_neighbor:
-                print("this cell is: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+                #print("this cell is: " + str( row_neighbor ) + ", " + str( col_neighbor ))
                 continue
 
             # Wrap-around when neighbors are below 0 or above cols/rows max values
@@ -105,13 +116,14 @@ def check_neighbors(row, col):
             elif col_neighbor >= cols:
                 col_neighbor -= cols
 
-            print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+            # Debug warning - This will print 8 times
+            #print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
 
             # Check if neighbor is alive in the current grid
             if grid[row_neighbor][col_neighbor]:
                 neighbor_count += 1
 
-    print("cell neighbors: " + str( neighbor_count ))
+    #print("cell neighbors: " + str( neighbor_count ))
     return neighbor_count
 
 
@@ -125,7 +137,7 @@ def apply_game_rules(row, col, count):
     # Debug inputs
     #print("applying game rules to: " + str( row ) + ", " + str( col ))
     #print("# of neighbors: " + str( count ) + "\n")
-    print("dead or alve? " + str( nextGeneration[row][col] )) 
+    #print("dead or alve? " + str( nextGeneration[row][col] )) 
 
     # If cell is alive
     if grid[row][col]:
