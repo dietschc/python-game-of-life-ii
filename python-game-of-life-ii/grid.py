@@ -1,6 +1,8 @@
 from numpy import random
 
+
 grid = []
+nextGeneration = []
 rows = 10
 cols = 10
 
@@ -36,9 +38,16 @@ def output_grid():
 
 # Look for living cells
 def iterate_grid():
+    global nextGeneration
+    global grid
+
     row_current = ''
     col_current = ''
     cell_count = 0
+
+    # Copy current grid to nextGeneration
+    # nextGeneration is modified based on the current grid and copied back at the end
+    nextGeneration = grid
 
     for x in grid:
         for y in x:
@@ -49,16 +58,21 @@ def iterate_grid():
                 neighbor_count_current = 0
 
                 # Debug currently selected row and column
-                print("row: " + str( row_current ))
-                print("column: " + str( col_current ) + "\n")
+                print("cell row: " + str( row_current ))
+                print("cell column: " + str( col_current ) + "\n")
 
                 neighbor_count_current = check_neighbors(row_current, col_current)
                 print("cell has x neighbors: " + str( neighbor_count_current ) + "\n")
 
                 apply_game_rules(row_current, col_current, neighbor_count_current)
 
-
     print("living cell count: " + str( cell_count ))
+    print("Advancing to next generation")
+    print("########################################################\n")
+
+    # Copy the nextGeneration to current grid for the next iteration
+    grid = nextGeneration
+    output_grid()
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
@@ -112,11 +126,7 @@ def apply_game_rules(row, col, count):
     # Any live cell with fewer than two live neighbors dies, as if by underpopulation.
     print("applying game rules to: " + str( row ) + ", " + str( col ))
     print("# of neighbors: " + str( count ) + "\n")
-
     
-
-
-
 
 
 # Main
