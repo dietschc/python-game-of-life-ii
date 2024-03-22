@@ -52,22 +52,19 @@ def iterate_grid():
 
     for x in grid:
         for y in x:
-            if y == 1:
-                row_current = grid.index(x)
-                col_current = x.index(y)
-                cell_count += 1
-                neighbor_count_current = 0
+            row_current = grid.index(x)
+            col_current = x.index(y)
+            neighbor_count_current = 0
 
-                # Debug currently selected row and column
-                print("cell row: " + str( row_current ))
-                print("cell column: " + str( col_current ) + "\n")
+            # Debug currently selected row and column
+            print("cell row: " + str( row_current ))
+            print("cell column: " + str( col_current ) + "\n")
 
-                neighbor_count_current = check_neighbors(row_current, col_current)
-                print("cell has x neighbors: " + str( neighbor_count_current ) + "\n")
+            neighbor_count_current = check_neighbors(row_current, col_current)
+            print("cell has x neighbors: " + str( neighbor_count_current ) + "\n")
 
-                apply_game_rules(row_current, col_current, neighbor_count_current)
+            apply_game_rules(row_current, col_current, neighbor_count_current)
 
-    print("living cell count: " + str( cell_count ))
     print("Advancing to next generation")
     print("########################################################\n")
 
@@ -128,10 +125,10 @@ def apply_game_rules(row, col, count):
     # Debug inputs
     #print("applying game rules to: " + str( row ) + ", " + str( col ))
     #print("# of neighbors: " + str( count ) + "\n")
-    #print("dead or alve? " + str( nextGeneration[row][col] )) 
+    print("dead or alve? " + str( nextGeneration[row][col] )) 
 
     # If cell is alive
-    if nextGeneration[row][col]:
+    if grid[row][col]:
         # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
         if count < 2:
             print("Underpopulation - less than 2 neighbors; cell dies now...")
