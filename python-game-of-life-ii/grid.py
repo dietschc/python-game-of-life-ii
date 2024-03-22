@@ -3,23 +3,30 @@ from numpy import random
 grid = []
 rows = 10
 cols = 10
-rrand = random.randint(rows)
-crand = random.randint(cols)
 
 # Generate grid and fill with zeroes
 def setup_grid():
+    seedCount = 0
+
     for x in range(rows):
         col = []
         for y in range(cols):
             col.append(0)
         grid.append(col)
 
-    # Print random initial conditions
-    print("row rand: " + str( rrand) )
-    print("col rand: " + str( crand) )
+    for x in range(random.randint(rows)):
+        rrand = random.randint(rows)
+        crand = random.randint(cols)
 
-    # Set initial random seed position
-    grid[rrand][crand] = 1
+        # Print random initial conditions
+        print("row rand: " + str( rrand) )
+        print("col rand: " + str( crand) + "\n")
+
+        # Set initial random seed position
+        grid[rrand][crand] = 1
+        seedCount += 1
+
+    print("seed count " + str( seedCount ))
 
 # Function to print entire grid matrix to the display
 def output_grid():
@@ -31,18 +38,22 @@ def output_grid():
 def iterate_grid():
     row_current = ''
     col_current = ''
+    cell_count = 0
 
     for x in grid:
         for y in x:
             if y == 1:
                 row_current = grid.index(x)
                 col_current = x.index(y)
+                cell_count += 1
 
                 # Debug currently selected row and column
-                #print("row: " + str( row_current ))
-                #print("column: " + str( col_current ))
+                print("row: " + str( row_current ))
+                print("column: " + str( col_current ) + "\n")
 
-                check_neighbors(row_current, col_current)
+                #check_neighbors(row_current, col_current)
+
+    print("living cell count: " + str( cell_count ))
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
