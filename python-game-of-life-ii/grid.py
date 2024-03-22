@@ -1,4 +1,15 @@
 from numpy import random
+import os
+import time
+
+
+# Python CLI implementation of Conway's game of life
+# (2nd attempt)
+#
+# March 22, 2024
+# By Coleman Dietsch
+#
+#
 
 
 grid = []
@@ -28,7 +39,7 @@ def setup_grid():
         grid[rrand][crand] = 1
         seedCount += 1
 
-    print("seed count " + str( seedCount ))
+    #print("seed count " + str( seedCount ))
     output_grid()
 
 # Function to print entire grid matrix to the display
@@ -72,12 +83,11 @@ def iterate_grid():
             else:
                 dead_count += 1
 
-    print("Previous alive count: " + str( alive_count ))
-    print("Previous dead count: " + str( dead_count ))
-    print("Previous Total count: " + str( alive_count + dead_count ) + "\n")
-
-    print("Advancing to next generation")
-    print("########################################################\n")
+    #print("Previous alive count: " + str( alive_count ))
+    #print("Previous dead count: " + str( dead_count ))
+    #print("Previous Total count: " + str( alive_count + dead_count ) + "\n")
+    #print("Advancing to next generation")
+    #print("########################################################\n")
 
     # Copy the nextGeneration to current grid for the next iteration
     grid = nextGeneration
@@ -143,8 +153,7 @@ def apply_game_rules(row, col, count):
     if grid[row][col]:
         # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
         if count < 2:
-            print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col )
-                  + " dies now...")
+            print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col ) + " dies now...")
             nextGeneration[row][col] = 0
 
         # 2. Any live cell with two or three live neighbors lives on to the next generation.
@@ -152,8 +161,7 @@ def apply_game_rules(row, col, count):
 
         # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
         if count > 3:
-            print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col )
-                  + " dies now...")
+            print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col ) + " dies now...")
             nextGeneration[row][col] = 0
    
    # Else cell is dead
@@ -166,7 +174,18 @@ def apply_game_rules(row, col, count):
 
 # Main
 if __name__ == "__main__":
+    count = 0
+
+    os.system('clear')
     setup_grid()
-    iterate_grid()
-    iterate_grid()
+    time.sleep(3)
+
+    while True:
+        os.system('clear')
+        count += 1
+        iterate_grid()
+        print("iteration count: " + str( count ))
+        time.sleep(3)
+
+    
 
