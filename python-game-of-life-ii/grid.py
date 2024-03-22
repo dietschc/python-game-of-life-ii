@@ -110,6 +110,7 @@ def check_neighbors(row, col):
 
             print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
 
+            # Check if neighbor is alive in the current grid
             if grid[row_neighbor][col_neighbor]:
                 neighbor_count += 1
 
@@ -129,18 +130,27 @@ def apply_game_rules(row, col, count):
     #print("# of neighbors: " + str( count ) + "\n")
     #print("dead or alve? " + str( nextGeneration[row][col] )) 
 
-    # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-    if count < 2:
-        print("Underpopulation - less than 2 neighbors; cell dies now...")
-        nextGeneration[row][col] = 0
+    # If cell is alive
+    if nextGeneration[row][col]:
+        # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+        if count < 2:
+            print("Underpopulation - less than 2 neighbors; cell dies now...")
+            nextGeneration[row][col] = 0
 
-    # 2. Any live cell with two or three live neighbors lives on to the next generation.
-    # Do nothing
+        # 2. Any live cell with two or three live neighbors lives on to the next generation.
+        # Do nothing
 
-    # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
-    if count > 3:
-        print("Overpopulation - more than 3 neighbors; cell dies now...")
-        nextGeneration[row][col] = 0
+        # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+        if count > 3:
+            print("Overpopulation - more than 3 neighbors; cell dies now...")
+            nextGeneration[row][col] = 0
+   
+   # Else cell is dead
+    else:
+    # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+        if count == 3:
+            print("Reproduction - returns this cell to life")
+            nextGeneration[row][col] = 1
 
 
 # Main
