@@ -16,7 +16,7 @@ def setup_grid():
             col.append(0)
         grid.append(col)
 
-    for x in range(random.randint(rows)):
+    for x in range(random.randint(rows * cols)):
         rrand = random.randint(rows)
         crand = random.randint(cols)
 
@@ -28,7 +28,8 @@ def setup_grid():
         grid[rrand][crand] = 1
         seedCount += 1
 
-    print("seed count " + str( seedCount ))
+    #print("seed count " + str( seedCount ))
+    output_grid()
 
 # Function to print entire grid matrix to the display
 def output_grid():
@@ -36,7 +37,7 @@ def output_grid():
         print(x)
     print() # blank line
 
-# Look for living cells
+# Look for living cells, apply the game rules to each cell
 def iterate_grid():
     global nextGeneration
     global grid
@@ -112,7 +113,7 @@ def check_neighbors(row, col):
             if grid[row_neighbor][col_neighbor]:
                 neighbor_count += 1
 
-    print("cell neighbors: " + str( neighbor_count ) + "\n")
+    print("cell neighbors: " + str( neighbor_count ))
     return neighbor_count
 
 
@@ -123,15 +124,18 @@ def check_neighbors(row, col):
 # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 def apply_game_rules(row, col, count):
 
-    # Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-    print("applying game rules to: " + str( row ) + ", " + str( col ))
-    print("# of neighbors: " + str( count ) + "\n")
-    
+    # Debug inputs
+    #print("applying game rules to: " + str( row ) + ", " + str( col ))
+    #print("# of neighbors: " + str( count ) + "\n")
+    #print("dead or alve? " + str( nextGeneration[row][col] )) 
 
+    # Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+    if count < 2:
+        print("less than 2 neighbors; cell dies now...")
+        nextGeneration[row][col] = 0
 
 # Main
 if __name__ == "__main__":
     setup_grid()
-    output_grid()
     iterate_grid()
 
