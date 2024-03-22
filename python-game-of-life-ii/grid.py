@@ -89,8 +89,8 @@ def iterate_grid():
     print("########################################################\n")
 
     # Copy the nextGeneration to current grid for the next iteration
-#    grid = nextGeneration
-#    output_grid()
+    grid = nextGeneration
+    output_grid()
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
@@ -140,9 +140,9 @@ def check_neighbors(row, col):
 def apply_game_rules(row, col, count):
 
     # Debug inputs
-    print("applying game rules to: " + str( row ) + ", " + str( col ))
-    print("# of neighbors: " + str( count ))
-    print("dead or alve? " + str( grid[row][col] )) 
+    #print("applying game rules to: " + str( row ) + ", " + str( col ))
+    #print("# of neighbors: " + str( count ))
+    #print("dead or alve? " + str( grid[row][col] )) 
 
     # If cell is alive in current grid
     if grid[row][col]:
@@ -173,16 +173,14 @@ if __name__ == "__main__":
 
     os.system('clear')
     setup_grid()
-    iterate_grid()
+    time.sleep(3)
 
-#    time.sleep(3)
-
-#    while True:
-#        os.system('clear')
-#        count += 1
-#        iterate_grid()
-#        print("iteration count: " + str( count ))
-#        time.sleep(3)
+    while True:
+        os.system('clear')
+        count += 1
+        iterate_grid()
+        print("iteration count: " + str( count ))
+        time.sleep(3)
 
     
 
