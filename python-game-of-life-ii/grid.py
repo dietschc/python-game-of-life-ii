@@ -46,12 +46,17 @@ def iterate_grid():
                 row_current = grid.index(x)
                 col_current = x.index(y)
                 cell_count += 1
+                neighbor_count_current = 0
 
                 # Debug currently selected row and column
                 print("row: " + str( row_current ))
                 print("column: " + str( col_current ) + "\n")
 
-                check_neighbors(row_current, col_current)
+                neighbor_count_current = check_neighbors(row_current, col_current)
+                print("cell has x neighbors: " + str( neighbor_count_current ) + "\n")
+
+                apply_game_rules(row_current, col_current, neighbor_count_current)
+
 
     print("living cell count: " + str( cell_count ))
 
@@ -94,16 +99,21 @@ def check_neighbors(row, col):
                 neighbor_count += 1
 
     print("cell neighbors: " + str( neighbor_count ) + "\n")
-    apply_game_rules(row, col)
+    return neighbor_count
+
 
 # The 4 rules of Conway's Game of Life
 # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
 # 2. Any live cell with two or three live neighbors lives on to the next generation.
 # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
 # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-def apply_game_rules(row, col):
+def apply_game_rules(row, col, count):
+
     # Any live cell with fewer than two live neighbors dies, as if by underpopulation.
     print("applying game rules to: " + str( row ) + ", " + str( col ))
+    print("# of neighbors: " + str( count ) + "\n")
+
+    
 
 
 
