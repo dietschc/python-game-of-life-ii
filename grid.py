@@ -1,7 +1,7 @@
 from numpy import random
 import os
 import time
-
+import copy
 
 # Python CLI implementation of Conway's game of life
 # (2nd attempt)
@@ -20,32 +20,49 @@ import time
 
 grid = []
 nextGeneration = []
-rows = 10
-cols = 10
+ROWS = 10
+COLS = 10
 
 # Generate grid and fill with zeroes
 def setup_grid():
     seedCount = 0
 
-    for x in range(rows):
+    for x in range(ROWS):
         col = []
-        for y in range(cols):
+        for y in range(COLS):
             col.append(0)
         grid.append(col)
 
     # Set initial random seed position
-    for x in range(10):
-        rrand = random.randint(rows)
-        crand = random.randint(cols)
+
+    # Test shapes
+    #
+    # Box
+    #grid[4][4] = 1
+    #grid[4][5] = 1
+    #grid[5][4] = 1
+    #grid[5][5] = 1
+
+    # Spinner
+    #grid[4][4] = 1
+    #grid[4][5] = 1
+    #grid[4][6] = 1
+    #
+
+    # Randomize grid
+    # Needs to be re-enabled!
+    for x in range(random.randint(ROWS * COLS)):
+        rrand = random.randint(ROWS)
+        crand = random.randint(COLS)
 
         # Debug random initial conditions
-        #print("row rand: " + str( rrand) )
-        #print("col rand: " + str( crand) + "\n")
+        #print("row rand: " + str( rrand ) )
+        #print("col rand: " + str( crand ) + "\n")
 
         grid[rrand][crand] = 1
         seedCount += 1
 
-    print("seed count " + str( seedCount ))
+    #print("seed count " + str( seedCount ))
     output_grid()
 
 # Function to print entire grid matrix to the display
@@ -64,7 +81,8 @@ def iterate_grid():
 
     # Copy current grid to nextGeneration
     # nextGeneration is modified based on the current grid and copied back at the end
-    nextGeneration = grid
+    #nextGeneration = grid
+    nextGeneration = copy.deepcopy(grid)
 
     for x in range(len(grid)):
         for y in range(len(grid[x])):
@@ -76,23 +94,25 @@ def iterate_grid():
             neighbor_count_current = 0
 
             neighbor_count_current = check_neighbors(row_current, col_current)
-            print("cell: " + str( row_current) + ", " + str( col_current ) +  " neighbors: " + str( neighbor_count_current ) + "\n")
+            #print("cell: " + str( row_current) + ", " + str( col_current ) +  " neighbors: " + str( neighbor_count_current ) + "\n")
 
             apply_game_rules(row_current, col_current, neighbor_count_current)
 
     # Copy the nextGeneration to current grid for the next iteration
-    grid = nextGeneration
+    #grid = nextGeneration
+    grid = copy.deepcopy(nextGeneration)
+
     output_grid()
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
-    row_neighbor = ''
-    col_nieghbor = ''
+    row_neighbor = 0
+    col_nieghbor = 0
     neighbor_count = 0
 
-    print("this cell is: " + str( row ) + ", " + str( col ))
+    #print("this cell is: " + str( row ) + ", " + str( col ))
 
-    # Algorithm to read the rows and cols around current cell
+    # Algorithm to read the ROWS and COLS around current cell
     for x in range(-1, 2):
         for y in range(-1, 2):
             row_neighbor = row + x
@@ -105,19 +125,19 @@ def check_neighbors(row, col):
                 #print("this cell is: " + str( row_neighbor ) + ", " + str( col_neighbor ))
                 continue
 
-            # Wrap-around when neighbors are below 0 or above cols/rows max values
+            # Wrap-around when neighbors are below 0 or above COLS/ROWS max values
             if row_neighbor < 0:
-                row_neighbor += rows
-            elif row_neighbor >= rows:
-                row_neighbor -= rows
+                row_neighbor += ROWS
+            elif row_neighbor >= ROWS:
+                row_neighbor -= ROWS
 
             if col_neighbor < 0:
-                col_neighbor += cols
-            elif col_neighbor >= cols:
-                col_neighbor -= cols
+                col_neighbor += COLS
+            elif col_neighbor >= COLS:
+                col_neighbor -= COLS
 
             # Debug warning - This will print 8 times
-            print("neighbor normalized: " + str( row_neighbor ) + ", " + str( col_neighbor ))
+            #print("neighbor: " + str( row_neighbor ) + ", " + str( col_neighbor ) + " alive? " + str(  grid[row_neighbor][col_neighbor] ))
 
             # Check if neighbor is alive in the current grid
             if grid[row_neighbor][col_neighbor]:
@@ -167,7 +187,7 @@ if __name__ == "__main__":
     time.sleep(3)
 
     while True:
-        #os.system('clear')
+        os.system('clear')
         count += 1
         iterate_grid()
         print("iteration count: " + str( count ))
