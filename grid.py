@@ -23,19 +23,17 @@ nextGeneration = []
 ROWS = 10
 COLS = 10
 
-# Generate grid and fill with zeroes
+# Setup function that zeroes out grid and adds random seed
 def setup_grid():
-    seedCount = 0
-
+    # Generate initial grid and fill with zeroes
     for x in range(ROWS):
         col = []
         for y in range(COLS):
             col.append(0)
         grid.append(col)
 
-    # Set initial random seed position
-
-    # Test shapes
+    #
+    # Some test shapes
     #
     # Box
     #grid[4][4] = 1
@@ -50,19 +48,12 @@ def setup_grid():
     #
 
     # Randomize grid
-    # Needs to be re-enabled!
     for x in range(random.randint(ROWS * COLS)):
         rrand = random.randint(ROWS)
         crand = random.randint(COLS)
 
-        # Debug random initial conditions
-        #print("row rand: " + str( rrand ) )
-        #print("col rand: " + str( crand ) + "\n")
-
         grid[rrand][crand] = 1
-        seedCount += 1
 
-    #print("seed count " + str( seedCount ))
     output_grid()
 
 # Function to print entire grid matrix to the display
@@ -71,7 +62,7 @@ def output_grid():
         print(x)
     print() # blank line
 
-# Look for living cells, apply the game rules to each cell
+# Go through each cell and apply game rules to it
 def iterate_grid():
     global nextGeneration
     global grid
@@ -81,7 +72,6 @@ def iterate_grid():
 
     # Copy current grid to nextGeneration
     # nextGeneration is modified based on the current grid and copied back at the end
-    #nextGeneration = grid
     nextGeneration = copy.deepcopy(grid)
 
     for x in range(len(grid)):
@@ -99,7 +89,6 @@ def iterate_grid():
             apply_game_rules(row_current, col_current, neighbor_count_current)
 
     # Copy the nextGeneration to current grid for the next iteration
-    #grid = nextGeneration
     grid = copy.deepcopy(nextGeneration)
 
     output_grid()
@@ -110,15 +99,11 @@ def check_neighbors(row, col):
     col_nieghbor = 0
     neighbor_count = 0
 
-    #print("this cell is: " + str( row ) + ", " + str( col ))
-
     # Algorithm to read the ROWS and COLS around current cell
     for x in range(-1, 2):
         for y in range(-1, 2):
             row_neighbor = row + x
             col_neighbor = col + y
-
-            #print("neighbor: " + str( row_neighbor ) + ", " + str( col_neighbor ))
 
             # Check to see if neighbor is current cell and skip if it is
             if row == row_neighbor and col == col_neighbor:
@@ -143,18 +128,11 @@ def check_neighbors(row, col):
             if grid[row_neighbor][col_neighbor]:
                 neighbor_count += 1
 
-    #print("cell neighbors: " + str( neighbor_count ))
     return neighbor_count
 
 
 # The 4 rules of Conway's Game of Life
 def apply_game_rules(row, col, count):
-
-    # Debug inputs
-    #print("applying game rules to: " + str( row ) + ", " + str( col ))
-    #print("# of neighbors: " + str( count ))
-    #print("dead or alve? " + str( grid[row][col] )) 
-
     # If cell is alive in current grid
     if grid[row][col]:
         # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
