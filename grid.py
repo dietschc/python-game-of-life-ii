@@ -17,11 +17,11 @@ import copy
 #
 #
 
-
+# Globals and constants
 grid = []
 nextGeneration = []
-ROWS = 10
-COLS = 10
+ROWS = 12
+COLS = 32
 
 # Setup function that zeroes out grid and adds random seed
 def setup_grid():
@@ -48,6 +48,7 @@ def setup_grid():
     #
 
     # Randomize grid
+    #for x in range(0): # lazy shortcut to bypass loop
     for x in range(random.randint(ROWS * COLS)):
         rrand = random.randint(ROWS)
         crand = random.randint(COLS)
@@ -76,8 +77,8 @@ def iterate_grid():
 
     for x in range(len(grid)):
         for y in range(len(grid[x])):
-            row_current = y
-            col_current = x
+            row_current = x
+            col_current = y
             neighbor_count_current = 0
 
             neighbor_count_current = check_neighbors(row_current, col_current)
@@ -95,7 +96,7 @@ def check_neighbors(row, col):
     row_neighbor = 0
     col_nieghbor = 0
     neighbor_count = 0
-
+    
     # Algorithm to read the ROWS and COLS around current cell
     for x in range(-1, 2):
         for y in range(-1, 2):
