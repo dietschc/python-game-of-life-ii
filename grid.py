@@ -67,8 +67,8 @@ def iterate_grid():
     global nextGeneration
     global grid
 
-    row_current = ''
-    col_current = ''
+    row_current = 0
+    col_current = 0
 
     # Copy current grid to nextGeneration
     # nextGeneration is modified based on the current grid and copied back at the end
@@ -76,9 +76,6 @@ def iterate_grid():
 
     for x in range(len(grid)):
         for y in range(len(grid[x])):
-            #print("grid row index: " + str( y ))
-            #print("grid column index: " + str( x ))
-
             row_current = y
             col_current = x
             neighbor_count_current = 0
