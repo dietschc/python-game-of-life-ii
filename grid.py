@@ -26,10 +26,8 @@ from numpy import random
 # Globals and constants
 grid = []
 nextGeneration = []
-ROWS = 12
-COLS = 32
-
-#plt.rcParams["figure.figsize"]=(7,5)
+ROWS = 120
+COLS = 320
 
 
 # Setup function that zeroes out grid and adds random seed
@@ -67,22 +65,11 @@ def setup_grid():
     #output_grid()
 
 
-# Function to print entire grid matrix to the display
+# CLI function to print entire grid matrix to the display
 def output_grid():
-    # CLI output
-    #for x in grid:
-    #    print(x)
-    #print() # blank line
-
-    # GUI output
-    # Function to show numpy array as a matrix    
-    plt.matshow(grid)
-
-    # Clear previous grid
-    #plt.clf()
-
-    # Displaying the plot
-    #plt.show()
+    for x in grid:
+        print(x)
+    print() # blank line
 
 
 # Go through each cell and apply game rules to it
@@ -179,30 +166,27 @@ def apply_game_rules(row, col, count):
 
 # Main
 if __name__ == "__main__":
+    # Initialize grid
     setup_grid()
-#    iterate_grid()
-#    fig = plt.figure()
-#    im = plt.imshow(grid, animated=True)
-
-#    def update(i):
-#        iterate_grid()
-
-#    ani = animation.FuncAnimation(fig, update, interval=50, blit=True)
-#    plt.show()
 
 
-
-    plt.rcParams["figure.figsize"] = [7.00, 3.50]
+    #
+    # Boilerplate matplotlib animation code, except run our iterate_grid() function on updates
+    #
+    plt.rcParams["figure.figsize"] = [12, 8]
     plt.rcParams["figure.autolayout"] = True
 
     fig, ax = plt.subplots()
+    ax.set_axis_off()
 
     def update(i):
+        # Iterate our grid every update
         iterate_grid()
+
         ax.imshow(grid)
         ax.set_axis_off()
 
-    anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
+    anim = animation.FuncAnimation(fig, update, frames=30, interval=100)
 
     plt.show()
 
