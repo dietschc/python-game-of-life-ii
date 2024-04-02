@@ -1,7 +1,12 @@
-from numpy import random
+# Importing the required modules
 import os
 import time
 import copy
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+from numpy import random
+
 
 # Python CLI implementation of Conway's game of life
 # (2nd attempt)
@@ -17,11 +22,15 @@ import copy
 #
 #
 
+
 # Globals and constants
 grid = []
 nextGeneration = []
 ROWS = 12
 COLS = 32
+
+#plt.rcParams["figure.figsize"]=(7,5)
+
 
 # Setup function that zeroes out grid and adds random seed
 def setup_grid():
@@ -55,13 +64,26 @@ def setup_grid():
 
         grid[rrand][crand] = 1
 
-    output_grid()
+    #output_grid()
+
 
 # Function to print entire grid matrix to the display
 def output_grid():
-    for x in grid:
-        print(x)
-    print() # blank line
+    # CLI output
+    #for x in grid:
+    #    print(x)
+    #print() # blank line
+
+    # GUI output
+    # Function to show numpy array as a matrix    
+    plt.matshow(grid)
+
+    # Clear previous grid
+    #plt.clf()
+
+    # Displaying the plot
+    #plt.show()
+
 
 # Go through each cell and apply game rules to it
 def iterate_grid():
@@ -89,7 +111,8 @@ def iterate_grid():
     # Copy the nextGeneration to current grid for the next iteration
     grid = copy.deepcopy(nextGeneration)
 
-    output_grid()
+    #output_grid()
+
 
 # Iterate through neighboring cells
 def check_neighbors(row, col):
@@ -156,18 +179,30 @@ def apply_game_rules(row, col, count):
 
 # Main
 if __name__ == "__main__":
-    count = 0
-
-    os.system('clear')
     setup_grid()
-    time.sleep(3)
+#    iterate_grid()
+#    fig = plt.figure()
+#    im = plt.imshow(grid, animated=True)
 
-    while True:
-        os.system('clear')
-        count += 1
+#    def update(i):
+#        iterate_grid()
+
+#    ani = animation.FuncAnimation(fig, update, interval=50, blit=True)
+#    plt.show()
+
+
+
+    plt.rcParams["figure.figsize"] = [7.00, 3.50]
+    plt.rcParams["figure.autolayout"] = True
+
+    fig, ax = plt.subplots()
+
+    def update(i):
         iterate_grid()
-        print("iteration count: " + str( count ))
-        time.sleep(3)
+        ax.imshow(grid)
+        ax.set_axis_off()
 
-    
+    anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
+
+    plt.show()
 
