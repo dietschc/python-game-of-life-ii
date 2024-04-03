@@ -1,11 +1,4 @@
-# Importing the required modules
-import os
-import time
-import copy
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import numpy as np
-from numpy import random
+#!/usr/bin/env python3
 
 
 # Python CLI implementation of Conway's game of life
@@ -22,12 +15,21 @@ from numpy import random
 #
 #
 
+# Importing the required modules
+import os
+import time
+import copy
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+from numpy import random
+
 
 # Globals and constants
 grid = []
 nextGeneration = []
-ROWS = 120
-COLS = 320
+ROWS = 12
+COLS = 32
 
 
 # Setup function that zeroes out grid and adds random seed
@@ -169,11 +171,10 @@ if __name__ == "__main__":
     # Initialize grid
     setup_grid()
 
-
     #
     # Boilerplate matplotlib animation code, except run our iterate_grid() function on updates
     #
-    plt.rcParams["figure.figsize"] = [12, 8]
+    plt.rcParams["figure.figsize"] = [6, 6]
     plt.rcParams["figure.autolayout"] = True
 
     fig, ax = plt.subplots()
@@ -184,9 +185,8 @@ if __name__ == "__main__":
         iterate_grid()
 
         ax.imshow(grid)
-        ax.set_axis_off()
 
-    anim = animation.FuncAnimation(fig, update, frames=30, interval=100)
+    anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
 
     plt.show()
 
