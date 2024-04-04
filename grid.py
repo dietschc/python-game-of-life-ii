@@ -48,10 +48,10 @@ parser.add_argument("--gui", help="(default) run application in graphical mode",
 args = parser.parse_args()
 if args.verbose:
     print("verbosity turned on")
-if args.cli:
-    print("Running in CLI mode")
-if args.gui:
-    print("Running in GUI mode")
+    if args.cli:
+        print("Running in CLI mode")
+    if args.gui:
+        print("Running in GUI mode")
 
 
 #
@@ -89,8 +89,6 @@ def setup_grid():
 
         grid[rrand][crand] = 1
 
-    #output_grid()
-
 
 # CLI function to print entire grid matrix to the display
 def output_grid():
@@ -124,8 +122,6 @@ def iterate_grid():
 
     # Copy the nextGeneration to current grid for the next iteration
     grid = copy.deepcopy(nextGeneration)
-
-    #output_grid()
 
 
 # Iterate through neighboring cells
@@ -196,17 +192,15 @@ if __name__ == "__main__":
     # Always initialize grid
     setup_grid()
 
-    # If running with the cli flag enter cli mode instead gui animation
+    # If running with the cli flag run command line mode
     if args.cli:
-        print("running in cli mode")
 
-        # Run in loop until ctl+c to break
+        # Run in infinite loop until ctl+c to break
         while True:
             os.system('clear')
             output_grid()
             iterate_grid()
             time.sleep(1)
-
 
     # Run in GUI mode by default
     else:
