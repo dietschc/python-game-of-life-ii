@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+#
 # Python CLI implementation of Conway's game of life
 # (2nd attempt)
 #
@@ -13,9 +14,12 @@
 # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
 # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 #
-#
 
+
+#
 # Importing the required modules
+#
+import argparse
 import os
 import time
 import copy
@@ -25,13 +29,34 @@ import numpy as np
 from numpy import random
 
 
+#
 # Globals and constants
+#
 grid = []
 nextGeneration = []
 ROWS = 12
 COLS = 32
 
 
+#
+# Argument parser
+#
+parser = argparse.ArgumentParser()
+parser.add_argument("--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("--cli", help="run application in command line mode", action="store_true")
+parser.add_argument("--gui", help="(default) run application in graphical mode", action="store_true")
+args = parser.parse_args()
+if args.verbose:
+    print("verbosity turned on")
+if args.cli:
+    print("Running in CLI mode")
+if args.gui:
+    print("Running in GUI mode")
+
+
+#
+# Functions
+#
 # Setup function that zeroes out grid and adds random seed
 def setup_grid():
     # Generate initial grid and fill with zeroes
@@ -168,25 +193,37 @@ def apply_game_rules(row, col, count):
 
 # Main
 if __name__ == "__main__":
-    # Initialize grid
+    # Always initialize grid
     setup_grid()
 
-    #
-    # Boilerplate matplotlib animation code, except run our iterate_grid() function on updates
-    #
-    plt.rcParams["figure.figsize"] = [6, 6]
-    plt.rcParams["figure.autolayout"] = True
+    # If running with the cli flag enter cli mode instead gui animation
+    if args.cli:
+        print("running in cli mode")
 
-    fig, ax = plt.subplots()
-    ax.set_axis_off()
+        # Run in loop until ctl+c to break
+        while True:
+            os.system('clear')
+            output_grid()
+            iterate_grid()
+            time.sleep(1)
 
-    def update(i):
-        # Iterate our grid every update
-        iterate_grid()
 
-        ax.imshow(grid)
+    # Run in GUI mode by default
+    else:
+        #
+        # Boilerplate matplotlib animation code, except run our iterate_grid() function on updates
+        #
+        plt.rcParams["figure.figsize"] = [6, 6]
+        plt.rcParams["figure.autolayout"] = True
 
-    anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
+        fig, ax = plt.subplots()
+        ax.set_axis_off()
 
-    plt.show()
+        def update(i):
+            # Iterate our grid every update
+            iterate_grid()
+            ax.imshow(grid)
+
+        anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
+        plt.show()
 

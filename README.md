@@ -11,14 +11,19 @@ Finally the apply_game_rules() function does what it sounds like, and applies th
 
 Depending on the display mode, output will either go to CLI or GUI.
 
-
-#
-
-The application also supports CLI mode by outputting the grid to the command line.
-
-Sample CLI output:
-
+### Quick Use Example
 ```
+$ ./grid.py --help
+usage: grid.py [-h] [--verbose] [--cli] [--gui]
+
+options:
+  -h, --help  show this help message and exit
+  --verbose   increase output verbosity
+  --cli       run application in command line mode
+  --gui       (default) run application in graphical mode
+
+$ ./grid.py --cli
+
 [1, 0, 1, 0, 1, 0, 1, 0, 0, 0]
 [1, 0, 1, 0, 1, 0, 0, 1, 1, 1]
 [0, 1, 1, 0, 1, 0, 0, 0, 0, 0]
