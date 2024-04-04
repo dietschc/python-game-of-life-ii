@@ -187,7 +187,9 @@ def apply_game_rules(row, col, count):
             nextGeneration[row][col] = 1
 
 
+#
 # Main
+#
 if __name__ == "__main__":
     # Always initialize grid
     setup_grid()
@@ -204,9 +206,7 @@ if __name__ == "__main__":
 
     # Run in GUI mode by default
     else:
-        #
-        # Boilerplate matplotlib animation code, except run our iterate_grid() function on updates
-        #
+        # Matplotlib animation code - run our iterate_grid() function every update
         plt.rcParams["figure.figsize"] = [6, 6]
         plt.rcParams["figure.autolayout"] = True
 
