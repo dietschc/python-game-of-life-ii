@@ -1,4 +1,8 @@
 # python-game-of-life-ii
+<picture>
+    <img alt="screenshot of application running with matplotlib gui interface." src="https://github.com/dietschc/python-game-of-life-ii/blob/main/gui_ss.png">
+</picture>
+
 My second attempt at implementing Conway's Game of Life in python.
 
 The program generates an initial 2d array, fills it with zeros, and then fills the grid with a random initial seed.
