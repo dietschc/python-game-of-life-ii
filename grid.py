@@ -216,6 +216,7 @@ if __name__ == "__main__":
         def update(i):
             # Iterate our grid every update
             iterate_grid()
+            ax.clear()
             ax.imshow(grid)
 
         anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
