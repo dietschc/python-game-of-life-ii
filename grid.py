@@ -26,6 +26,8 @@ import copy
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
+
+from matplotlib import colormaps
 from numpy import random
 
 
@@ -34,9 +36,8 @@ from numpy import random
 #
 grid = []
 nextGeneration = []
-ROWS = 12
-COLS = 32
-
+ROWS = 120
+COLS = 320
 
 #
 # Argument parser
@@ -191,6 +192,8 @@ def apply_game_rules(row, col, count):
 # Main
 #
 if __name__ == "__main__":
+    generationCount = 0
+
     # Always initialize grid
     setup_grid()
 
@@ -202,22 +205,41 @@ if __name__ == "__main__":
             os.system('clear')
             output_grid()
             iterate_grid()
+
+            # Output current generation count
+            print("Generation: " + str( generationCount ))
+            generationCount += 1
+
+            # Delay for x seconds
             time.sleep(1)
 
     # Run in GUI mode by default
     else:
         # Matplotlib animation code - run our iterate_grid() function every update
-        plt.rcParams["figure.figsize"] = [6, 6]
+        plt.rcParams["figure.figsize"] = [10, 6]
         plt.rcParams["figure.autolayout"] = True
 
         fig, ax = plt.subplots()
+        fig.patch.set_facecolor('black')
         ax.set_axis_off()
 
-        def update(i):
+        def update(frame):
+            global generationCount
+
             # Iterate our grid every update
             iterate_grid()
+
+            # Clear buffer to prevent animation slowdown
             ax.clear()
-            ax.imshow(grid)
+
+            # Hide axis, use custom colormap
+            ax.set_axis_off()
+            ax.matshow(grid, cmap=colormaps['bone'])
+
+            # Clear console window before outputting updated count
+            os.system('clear')
+            print("Generation: " + str( generationCount ))
+            generationCount += 1
 
         anim = animation.FuncAnimation(fig, update, frames=20, interval=50)
         plt.show()
