@@ -77,13 +77,20 @@ def setup_grid():
     #grid[5][5] = 1
 
     # Spinner
-    #grid[4][4] = 1
-    #grid[4][5] = 1
-    #grid[4][6] = 1
+    # grid[4][4] = 1
+    # grid[4][5] = 1
+    # grid[4][6] = 1
     #
 
+    # Glider
+    # grid[4][4] = 1
+    # grid[4][5] = 1
+    # grid[4][6] = 1
+    # grid[3][6] = 1
+    # grid[2][5] = 1
+
+
     # Randomize grid
-    #for x in range(0): # lazy shortcut to bypass loop
     for x in range(random.randint(ROWS * COLS)):
         rrand = random.randint(ROWS)
         crand = random.randint(COLS)
