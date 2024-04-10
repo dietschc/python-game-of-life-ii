@@ -5,6 +5,9 @@ class Cell:
 
     neighbor_count = 0
 
+    def get_cell_life_status(self):
+        return self.currentGen
+
     def get_cell_gen_status(self):
         return f'''
         Previous: {self.previousGen}

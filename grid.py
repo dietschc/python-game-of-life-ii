@@ -22,10 +22,13 @@ class Grid:
             self.matrix.append(tempCol)
 
         # Randomize grid
-        for x in range(random.randint(rows * cols)):
+        for x in range(random.randint(rows * cols) + 3):
             rrand = random.randint(rows)
             crand = random.randint(cols)
             self.matrix[rrand][crand].rez_cell()
+            # Advance cell to generation 0
+            self.matrix[rrand][crand].iterate_cell()
+
 
     # Getters
     def get_rows(self):
@@ -48,10 +51,10 @@ class Grid:
             print() # blank line
 
     # Setters
-    # def set_all_cells_to_nextGen(self):
-    #     for row in range(len(self.matrix)):
-    #         for col in range(len(self.matrix[row])):
-    #             print(self.matrix[row][col].get_cell_life_status(), end='')
+    def set_all_cells_to_nextGen(self):
+        for row in range(len(self.matrix)):
+            for col in range(len(self.matrix[row])):
+                self.matrix[row][col].iterate_cell()
 
     def set_cell_to_nextGen(self, row, col):
         return self.matrix[row][col].iterate_cell()
