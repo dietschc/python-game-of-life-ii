@@ -9,8 +9,12 @@ def main():
     print(f'Cols: {myGrid.get_cols()}')
 #    print(f'Matrix: \n{myGrid.get_matrix()}')
 #    print(f'Cell Specified: \n{myGrid.get_cell(1,1)}')
-    print('All cells: ')
-    myGrid.get_all_cells()
+#    print('All cells: ')
+#    myGrid.get_all_cells()
+#    myGrid.set_all_cells_to_nextGen()
+    print(myGrid.get_cell(1, 1))
+    myGrid.set_cell_to_nextGen(1, 1)
+    print(myGrid.get_cell(1, 1))    
  
  
 if __name__ == '__main__':
