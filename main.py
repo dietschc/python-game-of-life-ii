@@ -18,8 +18,7 @@ def main():
     myGrid.apply_game_rules_to_all_cells()
     myGrid.set_all_cells_to_nextGen()
 
-    print()
-    myGrid.get_all_cells()
+
 
 
     # print("\nCell neighbors: " + str( myGrid.set_cell_neighbor_count(1, 1) ))

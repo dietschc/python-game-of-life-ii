@@ -31,11 +31,10 @@ class Grid:
         #     # Advance cell to generation 0
         #     self.matrix[rrand][crand].iterate_cell()
         self.matrix[1][1].rez_cell()
-        self.matrix[1][1].iterate_cell()
         self.matrix[1][2].rez_cell()
-        self.matrix[1][2].iterate_cell()
         self.matrix[1][3].rez_cell()
-        self.matrix[1][3].iterate_cell()
+
+        self.set_all_cells_to_nextGen()
 
     #
     # Getters
