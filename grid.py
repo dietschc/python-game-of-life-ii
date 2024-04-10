@@ -110,24 +110,13 @@ class Grid:
     def set_cell_to_nextGen(self, row, col):
         return self.matrix[row][col].iterate_cell()
     
-    def set_all_cells_neighbor_count(self):
-        for row in range(len(self.matrix)):
-            for col in range(len(self.matrix[row])):
-                neighborCount = self.find_cell_neighbor_count(row, col)
-                self.matrix[row][col].set_cell_neighborCount(neighborCount)
-
-    def set_cell_neighbor_count(self, row, col, count):
-        return self.matrix[row][col].set_cell_neighborCount(count)
-    
     def apply_game_rules_to_all_cells(self):
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
-                neighborCount = self.matrix[row][col].get_cell_neighborCount()
+                neighborCount = self.find_cell_neighbor_count(row, col)
                 self.apply_game_rules_to_cell(row, col, neighborCount)
 
-    #
     # The 4 rules of Conway's Game of Life
-    #
     def apply_game_rules_to_cell(self, row, col, count):
         # If cell is alive in current grid
 

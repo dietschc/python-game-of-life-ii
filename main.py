@@ -10,13 +10,13 @@ def main():
     myGrid.get_all_cells()
     # print(myGrid.get_cell(1, 2))
 
-    myGrid.set_all_cells_neighbor_count()
+    # myGrid.set_all_cells_neighbor_count()
     myGrid.apply_game_rules_to_all_cells()
     myGrid.set_all_cells_to_nextGen()
     print()
     myGrid.get_all_cells()
 
-    myGrid.set_all_cells_neighbor_count()
+    # myGrid.set_all_cells_neighbor_count()
     myGrid.apply_game_rules_to_all_cells()
     myGrid.set_all_cells_to_nextGen()
     print()
