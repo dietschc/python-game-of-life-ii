@@ -18,6 +18,7 @@ class Grid:
         for row in range(rows):
             tempCol = []
             for col in range(cols):
+                # Add new cell object to self.matrix[row][col]
                 tempCol.append(Cell())
             self.matrix.append(tempCol)
 
@@ -29,8 +30,9 @@ class Grid:
             
             # Advance cell to generation 0
             self.matrix[rrand][crand].iterate_cell()
-
+    #
     # Getters
+    #
     def get_rows(self):
         return self.rows
 
@@ -89,8 +91,11 @@ class Grid:
         # return self.matrix[row][col].set_cell_neighbor_count(neighbor_count)
         return neighbor_count
     
-    
+
+    #
     # Setters
+    #
+    # Essentially iterates each cell to the next generation
     def set_all_cells_to_nextGen(self):
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
