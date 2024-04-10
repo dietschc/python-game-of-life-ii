@@ -1,7 +1,5 @@
 from numpy import random
-
 from cell import Cell
-
 
 # The grid contains a 2d array filled with cell objects
 class Grid:
@@ -30,15 +28,13 @@ class Grid:
             
         #     # Advance cell to generation 0
         #     self.matrix[rrand][crand].iterate_cell()
+
         self.matrix[1][1].rez_cell()
         self.matrix[1][2].rez_cell()
         self.matrix[1][3].rez_cell()
-
         self.set_all_cells_to_nextGen()
 
-    #
-    # Getters
-    #
+    # Grid class methods
     def get_rows(self):
         return self.rows
 
@@ -97,10 +93,6 @@ class Grid:
         # return self.matrix[row][col].set_cell_neighbor_count(neighbor_count)
         return neighbor_count
     
-
-    #
-    # Setters
-    #
     # Essentially iterates each cell to the next generation
     def set_all_cells_to_nextGen(self):
         for row in range(len(self.matrix)):
