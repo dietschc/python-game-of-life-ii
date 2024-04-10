@@ -2,7 +2,7 @@ class Cell:
     previousGen = 0
     currentGen = 0
     nextGen = 0
-    neighbor_count = 0
+    neighborCount = 0
 
     def get_cell_life_status(self):
         return self.currentGen
@@ -14,12 +14,12 @@ class Cell:
         Next: {self.nextGen}
         '''
     
-    def get_cell_neighbor_count(self):
-        return self.neighbor_count
+    def get_cell_neighborCount(self):
+        return self.neighborCount
     
-    def set_cell_neighbor_count(self, count):
-        self.neighbor_count = count
-        return self.neighbor_count    
+    def set_cell_neighborCount(self, count):
+        self.neighborCount = count
+        return self.neighborCount    
 
     def kill_cell(self):
         self.nextGen = 0
@@ -33,5 +33,6 @@ class Cell:
         self.previousGen = self.currentGen
         self.currentGen = self.nextGen
         # Empty nextGen at end
-        self.nextGen = 0
+        #self.nextGen = 0
+
 

@@ -114,15 +114,15 @@ class Grid:
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
                 neighborCount = self.find_cell_neighbor_count(row, col)
-                self.matrix[row][col].set_cell_neighbor_count(neighborCount)
+                self.matrix[row][col].set_cell_neighborCount(neighborCount)
 
     def set_cell_neighbor_count(self, row, col, count):
-        return self.matrix[row][col].set_cell_neighbor_count(count)
+        return self.matrix[row][col].set_cell_neighborCount(count)
     
     def apply_game_rules_to_all_cells(self):
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
-                neighborCount = self.matrix[row][col].get_cell_neighbor_count()
+                neighborCount = self.matrix[row][col].get_cell_neighborCount()
                 self.apply_game_rules_to_cell(row, col, neighborCount)
 
     #
@@ -130,10 +130,11 @@ class Grid:
     #
     def apply_game_rules_to_cell(self, row, col, count):
         # If cell is alive in current grid
+
         if self.matrix[row][col].get_cell_life_status():
             # 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
             if count < 2:
-                #print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
+                # print("Underpopulation - less than 2 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
                 self.matrix[row][col].kill_cell()
 
             # 2. Any live cell with two or three live neighbors lives on to the next generation.
@@ -141,12 +142,12 @@ class Grid:
 
             # 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
             if count > 3:
-                #print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
+                # print("Overpopulation - more than 3 neighbors; " + str( row ) + ", " + str( col ) + " dies now...\n")
                 self.matrix[row][col].kill_cell()
     
     # Else cell is dead
         else:
         # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
             if count == 3:
-                #print("Reproduction - returns " + str( row ) + ", " + str( col ) + " to life\n")
+                # print("Reproduction - returns " + str( row ) + ", " + str( col ) + " to life\n")
                 self.matrix[row][col].rez_cell()
