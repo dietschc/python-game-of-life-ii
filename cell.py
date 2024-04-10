@@ -15,6 +15,12 @@ class Cell:
         Next: {self.nextGen}
         '''
     
+    def get_cell_neighbor_count(self):
+        return self.neighbor_count
+    
+    def set_cell_neighbor_count(self, count):
+        self.neighbor_count = count    
+
     def kill_cell(self):
         self.nextGen = 0
 

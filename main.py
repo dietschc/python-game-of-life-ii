@@ -14,7 +14,8 @@ def main():
     # myGrid.set_all_cells_to_nextGen()
     # print(myGrid.get_cell(1, 1))
     # myGrid.set_cell_to_nextGen(1, 1)
-    # print(myGrid.get_cell(1, 1))
+    print("\nCell neighbors: " + str( myGrid.get_cell_neighbors(1, 1) ))
+    print("\nCell neighbors: " + str( myGrid.set_cell_neighbor_count(1, 1) ))
     # myGrid.get_all_cells()    
  
  
