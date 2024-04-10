@@ -50,19 +50,9 @@ class Grid:
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
                 print(self.matrix[row][col].get_cell_life_status(), end='')
-
             print() # blank line
 
-    # Setters
-    def set_all_cells_to_nextGen(self):
-        for row in range(len(self.matrix)):
-            for col in range(len(self.matrix[row])):
-                self.matrix[row][col].iterate_cell()
-
-    def set_cell_to_nextGen(self, row, col):
-        return self.matrix[row][col].iterate_cell()
-    
-    def set_cell_neighbor_count(self, row, col):
+    def get_cell_neighbor_count(self, row, col):
         row_neighbor = 0
         col_neighbor = 0
         neighbor_count = 0
@@ -96,4 +86,25 @@ class Grid:
                 if self.matrix[row_neighbor][col_neighbor].get_cell_life_status():
                     neighbor_count += 1
 
+        # return self.matrix[row][col].set_cell_neighbor_count(neighbor_count)
         return neighbor_count
+    
+    
+    # Setters
+    def set_all_cells_to_nextGen(self):
+        for row in range(len(self.matrix)):
+            for col in range(len(self.matrix[row])):
+                self.matrix[row][col].iterate_cell()
+
+    def set_cell_to_nextGen(self, row, col):
+        return self.matrix[row][col].iterate_cell()
+    
+    def set_all_cells_neighbor_count(self):
+        for row in range(len(self.matrix)):
+            for col in range(len(self.matrix[row])):
+                neighborCount = self.get_cell_neighbor_count(row, col)
+                self.matrix[row][col].set_cell_neighbor_count(neighborCount)
+
+    def set_cell_neighbor_count(self, row, col, count):
+        return self.matrix[row][col].set_cell_neighbor_count(count)
+    

@@ -19,7 +19,8 @@ class Cell:
         return self.neighbor_count
     
     def set_cell_neighbor_count(self, count):
-        self.neighbor_count = count    
+        self.neighbor_count = count
+        return self.neighbor_count    
 
     def kill_cell(self):
         self.nextGen = 0
