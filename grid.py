@@ -1,6 +1,7 @@
 from numpy import random
 from cell import Cell
 
+
 # The grid contains a 2d array filled with cell objects
 class Grid:
     matrix = []
@@ -26,13 +27,13 @@ class Grid:
         #     crand = random.randint(cols)
         #     self.matrix[rrand][crand].rez_cell()
             
-        #     # Advance cell to generation 0
-        #     self.matrix[rrand][crand].iterate_cell()
+            # Advance cell to generation 0
+            # self.matrix[rrand][crand].iterate_cell()
 
         self.matrix[1][1].rez_cell()
         self.matrix[1][2].rez_cell()
         self.matrix[1][3].rez_cell()
-        self.set_all_cells_to_nextGen()
+        self.set_all_cells_to_nextGen() # Apply our changes
 
     # Grid class methods
     def get_rows(self):
