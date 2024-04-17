@@ -3,6 +3,9 @@ class Cell:
     currentGen = 0
     nextGen = 0
     
+    # Python toString
+    def __str__(self):
+        return self.currentGen
 
     def get_cell_life_status(self):
         return self.currentGen

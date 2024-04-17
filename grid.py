@@ -5,6 +5,7 @@ from cell import Cell
 # The grid contains a 2d array filled with cell objects
 class Grid:
     matrix = []
+    lifeMatrix = []
     rows = 0
     cols = 0
     
@@ -22,17 +23,14 @@ class Grid:
             self.matrix.append(tempCol)
 
         # Randomize the grid by resurrecting a random number of dead cells
-        # for x in range(random.randint(rows * cols) + 3): # Arbitrary non-zero number
-        #     rrand = random.randint(rows)
-        #     crand = random.randint(cols)
-        #     self.matrix[rrand][crand].rez_cell()
+        for x in range(random.randint(rows * cols) + 3): # Arbitrary non-zero number
+            rrand = random.randint(rows)
+            crand = random.randint(cols)
+            self.matrix[rrand][crand].rez_cell()
             
-            # Advance cell to generation 0
-            # self.matrix[rrand][crand].iterate_cell()
-
-        self.matrix[1][1].rez_cell()
-        self.matrix[1][2].rez_cell()
-        self.matrix[1][3].rez_cell()
+        # self.matrix[1][1].rez_cell()
+        # self.matrix[1][2].rez_cell()
+        # self.matrix[1][3].rez_cell()
         self.set_all_cells_to_nextGen() # Apply our changes
 
     # Grid class methods
@@ -46,16 +44,27 @@ class Grid:
         return self.matrix
 
     def get_cell(self, row, col):
-        return self.matrix[row][col].get_cell_gen_status()
+        # return self.matrix[row][col].get_cell_gen_status()
+            return self.matrix[row][col].get_cell_gen_status()
     
     def get_cell_neighbors(self, row, col):
         return self.matrix[row][col].get_cell_neighbor_count()
 
-    def get_all_cells(self):
+    def print_all_cells(self):
         for row in range(len(self.matrix)):
             for col in range(len(self.matrix[row])):
                 print(self.matrix[row][col].get_cell_life_status(), end='')
             print() # blank line
+
+    def get_all_cells(self):
+        tempMatrix = []
+        for row in range(len(self.matrix)):
+            tempCol = []
+            for col in range(len(self.matrix[row])):
+                tempCol.append(self.matrix[row][col].get_cell_life_status())
+            tempMatrix.append(tempCol)
+
+        return tempMatrix
 
     def find_cell_neighbor_count(self, row, col):
         row_neighbor = 0
